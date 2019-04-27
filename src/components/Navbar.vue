@@ -33,7 +33,12 @@
                         <img src="/avatar-1.png"/>
                     </v-avatar>
                 </v-flex>
-                <p class="subheading white--text mt-1">Ninja</p>
+                <p class="subheading white--text mt-1 align-center">Ninja</p>
+                <v-flex class="mt-4 mb-3">
+                    <popup />
+                </v-flex>
+
+
             </v-layout>
             <v-list>
                 <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
@@ -50,8 +55,10 @@
 </template>
 
 <script>
+    import Popup from './Popup'
     export default {
         name: "Navbar",
+        components: { Popup },
         data() {
             return {
                 drawer: false,
