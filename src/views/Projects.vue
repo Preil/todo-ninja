@@ -7,7 +7,7 @@
                     <div slot="header">{{ project.title }}</div>
                     <v-card>
                         <v-card-text class="px-4 grey--text">
-                            <div class="font-weight-bold">due by</div>
+                            <div class="font-weight-bold">due by {{ project.due}}</div>
                             <div>{{ project.content }}</div>
                         </v-card-text>
                     </v-card>
