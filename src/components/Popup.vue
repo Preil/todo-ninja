@@ -1,5 +1,5 @@
 <template>
-    <v-dialog max-width="600px">
+    <v-dialog max-width="600px" v-model="dialog">
         <v-btn slot="activator" class="success">Add new project</v-btn>
         <v-card>
             <v-card-title>
@@ -39,7 +39,8 @@
                 inputRules: [
                     v => v.length >= 3 || 'Minimum length is 3 characters'
                 ],
-                loading: false
+                loading: false,
+                dialog: false
             }
         },
         methods: {
@@ -56,6 +57,7 @@
                     db.collection('projects').add(project).then(()=>{
                         console.log('Added to db')
                         this.loading = false
+                        this.dialog = false
                     })
                 }
             }
