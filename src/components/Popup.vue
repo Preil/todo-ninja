@@ -6,15 +6,18 @@
                 <h2>Add new project</h2>
             </v-card-title>
             <v-card-text>
-                <v-form class="px-3">
-                    <v-text-field label="Title" v-model="title" prepend-icon="folder"></v-text-field>
-                    <v-textarea label="information" v-model="content" prepend-icon="edit"></v-textarea>
+                <v-form class="px-3" ref="form">
+                    <v-text-field label="Title" v-model="title" :rules="inputRules"
+                                  prepend-icon="folder"></v-text-field>
+                    <v-textarea label="information" v-model="content" :rules="inputRules"
+                                prepend-icon="edit"></v-textarea>
 
                     <v-menu>
-                        <v-text-field :value="formattedDate" slot="activator" label="Due date" prepend-icon="date_range"></v-text-field>
+                        <v-text-field :value="formattedDate" slot="activator" label="Due date" :rules="inputRules"
+                                      prepend-icon="date_range"></v-text-field>
                         <v-date-picker v-model="due"></v-date-picker>
                     </v-menu>
-
+                    <v-spacer></v-spacer>
                     <v-btn flat class="success mx-0 mt-3" @click="submit">Add project</v-btn>
                 </v-form>
             </v-card-text>
@@ -24,18 +27,24 @@
 
 <script>
     import format from 'date-fns/format'
+
     export default {
         name: "Popup",
         data() {
             return {
                 title: '',
                 content: '',
-                due: null
+                due: null,
+                inputRules: [
+                    v => v.length >= 3 || 'Minimum length is 3 characters'
+                ]
             }
         },
         methods: {
             submit() {
-                console.log(this.title, this.content)
+                if (this.$refs.form.validate()) {
+                    console.log(this.title, this.content)
+                }
             }
         },
         computed: {
