@@ -18,32 +18,11 @@
 </template>
 
 <script>
+    import db from '@/fb'
     export default {
         data() {
             return {
-                projects: [
-                    {
-                        title: 'Design a new website',
-                        person: 'Ninja',
-                        due: '1st Jan 2019',
-                        status: 'ongoing',
-                        content: 'Lorem ipsum ... '
-                    },
-                    {
-                        title: 'Zip up the homepage',
-                        person: 'Chun Li',
-                        due: '10th Jan 2019',
-                        status: 'complete',
-                        content: 'Lorem ipsum ... '
-                    },
-                    {
-                        title: 'Design video thumbnails',
-                        person: 'Rye',
-                        due: '1st Dec 2018',
-                        status: 'overdue',
-                        content: 'Lorem ipsum ... '
-                    }
-                ]
+                projects: []
             }
         },
         computed: {
@@ -52,6 +31,19 @@
                     return project.person === 'Ninja'
                 })
             }
+        },
+        created(){
+            db.collection('projects').onSnapshot(res => {
+                const changes = res.docChanges()
+
+                changes.forEach(change => {
+                    if (change.type === 'added'){
+                        this.projects.push({
+                            ...change.doc.data(), id: change.doc.id
+                        })
+                    }
+                })
+            })
         }
     }
 </script>

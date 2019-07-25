@@ -58,6 +58,7 @@
                         console.log('Added to db')
                         this.loading = false
                         this.dialog = false
+                        this.$emit('projectAdded')
                     })
                 }
             }
